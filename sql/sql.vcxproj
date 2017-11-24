@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="hist.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

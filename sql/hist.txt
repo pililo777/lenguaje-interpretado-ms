@@ -1,0 +1,131 @@
+    1  pacman -S gtk2
+    2  pacman -Ss gtk2
+    3  pacman -S mingw-w64-x86_64-webkitgtk2
+    4  pacman -S mingw-w64-x86_64-webkitgtk2
+    5  pacman -Ss gtk2
+    6  pacman -S mingw-w64-x86_64-gtk2
+    7  pkg-config
+    8  pacman -Ss pkg-config
+    9  pacman -S mingw-w64-x86_64-pkg-config
+   10  pkg-config
+   11  pkgconfig
+   12  pwd
+   13  path
+   14  set
+   15  echo $PATH
+   16  pkgconfig
+   17  pkg-config
+   18  pwd
+   19  ls
+   20  ls -l
+   21  pwd
+   22  cd ..
+   23  ls
+   24  cd ..
+   25  ls
+   26  mingw64
+   27  mingw64.exe
+   28  ls
+   29  cd dev
+   30  ls
+   31  cd ..
+   32  ls
+   33  ls -l
+   34  cd bin
+   35  ls
+   36  ls p*
+   37  pacman -Ss pkg-config
+   38  pacman -S msys/pkg-config
+   39  pkconfig
+   40  pkg-config
+   41  pwd
+   42  pkg-config gtk+-2.0
+   43  pkg-config --Cflags gtk+-2.0
+   44  pkg-config --cflags gtk+-2.0
+   45  cd /usr
+   46  ls
+   47  cd /
+   48  find . -name gtk*
+   49  cd mingw64
+   50  ls
+   51  find . -name gtk*
+   52  find . -name gtk*.pc
+   53  cd lib
+   54  pwd
+   55  ls
+   56  cd gtk-2.0/
+   57  ls
+   58  find
+   59  cd ..
+   60  pwd
+   61  cd ..
+   62  pwd
+   63  find . -name gtk*.pc
+   64  pkg-config --cflags gtk+-2.0
+   65  pwd
+   66  cd lib
+   67  cd pkgconfig/
+   68  pwd
+   69  PKG_CONFIG_PATH=/mingw64/lib/pkgconfig; export PKG_CONFIG_PATH
+   70  pkg-config --cflags gtk+-2.0
+   71  pkg-config --cflags gtk+-2.0
+   72  pkg-config --libs gtk+-2.0
+   73  pkg-config --libs gtk+-2.0 --msvcsyntax
+   74  pkg-config --libs gtk+-2.0 --msvc-syntax
+   75  find . -name  gtk-win32-2.0.lib
+   76  cd /
+   77  pwd
+   78  ls
+   79  find . -name  gtk-win32-2.0.lib
+   80  pwd
+   81  ls -l
+   82  pwd
+   83  cd lib
+   84  cd mingw
+   85  cd mingw64
+   86  pwd
+   87  find . -name *.lib
+   88  find . -name *lib
+   89  pwd
+   90  ls
+   91  cd lib
+   92  ls
+   93  cd gtk-2.0/
+   94  ls
+   95  find
+   96  pacman -Ss gtk2
+   97  pacman -S mingw64/mingw-w64-x86_64-gtkmm
+   98  pwd
+   99* pacman -Ss rege
+  100  pacman -S mingw64/mingw-w64-x86_64-libtre-git
+  101  pacman -S msys/libtre-git
+  102  pwd
+  103  cd /
+  104  find . -name regex.h
+  105  pwd
+  106  cd mingw64
+  107  cd mingw64
+  108  cat include/tre/regex.h
+  109  cat include/glibmm-2.4/glibmm/regex.h
+  110  cat include/glibmm-2.4/glibmm/regex.h
+  111  vi include/glibmm-2.4/glibmm/regex.h
+  112  pacman -Ss vi
+  113  pacman -Ss vi editor
+  114  pacman -S msys/vim
+  115  vi include/glibmm-2.4/glibmm/regex.h
+  116  vim include/glibmm-2.4/glibmm/regex.h
+  117  pwd
+  118  find . -name regex.h
+  119  vim include/tre/regex.h
+  120  pwd
+  121  cd ..
+  122  find . -name regex.h
+  123  pwd
+  124  cd mingw64
+  125  find . -name termios.h
+  126  pacman Ss termios
+  127  pacman -Ss termios
+  128  pacman -Ss termio
+  129  pacman -Ss term
+  130  history
+  131  history > hist.txt
