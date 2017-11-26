@@ -12,15 +12,19 @@
 #include "stdio.h"
 #include "string.h"
 #include "ctype.h"
+#include <string.h>
+#include <wchar.h>
+
+
 #define UNIX
 
 #ifdef DOS
 #include "math.h"
 #endif
 // #else
-#ifdef UNIX
+//#ifdef UNIX
 #include "stdlib.h"
-#endif
+//#endif
 
 
 
@@ -130,7 +134,7 @@ int depurando = 1; /* bandera para depurar */
 int *parametro1;
 int *parametro2;
 
-char *consulta;
+wchar_t *consulta;
  
 /* FIN DE VARIABLES GLOBALES */
 
@@ -273,12 +277,12 @@ extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 extern void mainsql2();
 
 void mainsql() {
-    consulta = (char*) malloc(strlen(buff2[1])+1);
-    strcpy(consulta, buff2[1]+1);
-    consulta[strlen(consulta)-1] = 0;
-    printf("%s\n", consulta);
+	consulta = (wchar_t *)malloc(sizeof(wchar_t) * strlen(buff2[1]));
+	mbstowcs(consulta, buff2[1]+1, strlen(buff2[1]));
+    consulta[wcslen(consulta)-1] = 0;
+    //printf("%s\n", consulta);
     mainsql2();
-    //free(consulta);
+    free(consulta);
 }
 
 void eliminar_en_indice() {
