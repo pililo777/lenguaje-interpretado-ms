@@ -134,7 +134,7 @@ int depurando = 1; /* bandera para depurar */
 int *parametro1;
 int *parametro2;
 
-wchar_t *consulta;
+wchar_t *consulta1;
  
 /* FIN DE VARIABLES GLOBALES */
 
@@ -277,12 +277,12 @@ extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 extern void mainsql2();
 
 void mainsql() {
-	consulta = (wchar_t *)malloc(sizeof(wchar_t) * strlen(buff2[1]));
-	mbstowcs(consulta, buff2[1]+1, strlen(buff2[1]));
-    consulta[wcslen(consulta)-1] = 0;
+	consulta1 = (wchar_t *)malloc(sizeof(wchar_t) * strlen(buff2[1]));
+	mbstowcs(consulta1, buff2[1]+1, strlen(buff2[1]));
+    consulta1[wcslen(consulta1)-1] = 0;
     //printf("%s\n", consulta);
     mainsql2();
-    free(consulta);
+    free(consulta1);
 }
 
 void eliminar_en_indice() {

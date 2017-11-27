@@ -1193,6 +1193,15 @@ void * execut(ast * p) {
      */
     
     switch (p->tipo) {
+        case consulta:
+
+        {
+            printf("estamos procesando la consulta\n");
+
+        }
+        break;
+
+
         case pausa:
         { if(modo_pausa=='0')
             modo_pausa = '1';

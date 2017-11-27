@@ -14,7 +14,7 @@
 #include "sqlncli.h"
 
 
-extern wchar_t *consulta;
+extern wchar_t *consulta1;
 SQLWCHAR consulta2[] = L"SELECT top 2 message from log";
 
 
@@ -64,7 +64,7 @@ int mainsql2(void)
 				if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
 					retcode = SQLAllocHandle(SQL_HANDLE_STMT, hdbc, &hstmt);
 					//retcode = SQLAllocStmt(hdbc, &hstmt);
-					retcode = SQLPrepare(hstmt, consulta, SQL_NTS);
+					retcode = SQLPrepare(hstmt, consulta1, SQL_NTS);
 
 					retcode = SQLExecute(hstmt);
 
