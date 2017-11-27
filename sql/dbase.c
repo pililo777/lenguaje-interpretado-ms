@@ -56,7 +56,7 @@ extern void initProcedimientos();
 extern void velocidad();
 extern void velocidad2();
 extern void liberar_mem();
-extern void mainsql(); 
+
 
 
 int dbminit();
@@ -263,7 +263,7 @@ init_comandos() {
    
    comando[39].nombre = "free";           //30/09/2016
    /*  comando[39].pfuncion = freevar;   */
-   comando[39].pfuncion = mainsql;
+   comando[39].pfuncion = NULL;
 
 }
 
@@ -276,12 +276,16 @@ extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 //int obtenerllave(tipollave *);
 extern void mainsql2();
 
-void mainsql() {
-	consulta1 = (wchar_t *)malloc(sizeof(wchar_t) * strlen(buff2[1]));
-	mbstowcs(consulta1, buff2[1]+1, strlen(buff2[1]));
-    consulta1[wcslen(consulta1)-1] = 0;
+void mainsql(char * constante) {
+	int i = strlen(constante)+1;
+	consulta1 =  (malloc(i * sizeof(wchar_t)));
+	mbstowcs(consulta1, constante, strlen(constante));
+	//
+    consulta1[i-1] = 0;
     //printf("%s\n", consulta);
+	i = wcslen(consulta1);
     mainsql2();
+	fflush(stdout);
     free(consulta1);
 }
 

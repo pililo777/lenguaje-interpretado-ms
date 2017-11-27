@@ -59,7 +59,8 @@ int mainsql2(void)
 			// Set login timeout to 5 seconds
 			if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
 				SQLSetConnectAttr(hdbc, SQL_LOGIN_TIMEOUT, (SQLPOINTER)(rgbValue), 0);
-				retcode = SQLDriverConnect(hdbc, desktopHandle, (SQLWCHAR*)L"Driver={SQL Server Native Client 11.0};Server=RUBEN-PC\\SQLEXPRESS;Uid=sa;Pwd=call;\0", 1024, (SQLWCHAR*)OutConnStr, 255, &OutConnStrLen, SQL_DRIVER_COMPLETE);
+				//retcode = SQLDriverConnect(hdbc, desktopHandle, (SQLWCHAR*)L"Driver={SQL Server Native Client 11.0};Server=RUBEN-PC\\SQLEXPRESS;Uid=sa;Pwd=call;\0", 1024, (SQLWCHAR*)OutConnStr, 255, &OutConnStrLen, SQL_DRIVER_COMPLETE);
+				retcode = SQLDriverConnect(hdbc, desktopHandle, (SQLWCHAR*)L"Driver={SQL Server Native Client 11.0};Server=DESKTOP-SJA365E\\MSS10135;Uid=sa;Pwd=1.Write.1;\0", 1024, (SQLWCHAR*)OutConnStr, 255, &OutConnStrLen, SQL_DRIVER_COMPLETE);
 				// 117 es el largo de la connection string
 				if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO) {
 					retcode = SQLAllocHandle(SQL_HANDLE_STMT, hdbc, &hstmt);

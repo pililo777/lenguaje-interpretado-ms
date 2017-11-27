@@ -1064,6 +1064,8 @@ gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
 char nombrefuncion[50];
 
+extern void mainsql(char *);
+
 void * execut(ast * p) {
     
     double return_value; //sin uso
@@ -1196,7 +1198,11 @@ void * execut(ast * p) {
         case consulta:
 
         {
-            printf("estamos procesando la consulta\n");
+			int i;
+			i = p->nodo1->num;
+
+            printf("estamos procesando la consulta: %s\n", constantes[i]);
+			mainsql(constantes[i]);
 
         }
         break;
