@@ -93,6 +93,7 @@ subprograma:
 
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
+| sdesignator EQ STRING { $$ = nodo2(asigna_alfa, $1, $3); /* asigna string a varalfa */}
 | sdesignator EQ LITERAL  { $$ = nodo2(asigna_alfa, $1, $3); /*asign literal*/} 
 | sdesignator EQ sdesignator  { $$ = nodo2(asigna_alfa_var, $1, $3); /*asign literal*/} 
 | sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 
@@ -160,6 +161,7 @@ statement:
 | ACTUALIZAR REGISTRO designator designator { $$=nodo2(actualizar_registro, $3, $4); }
 | PAUSA { $$ = nodo0(pausa, $1); }
 | CONSULTA LITERAL  COMMA sdesignator { $$ = nodo2(consulta, $2, $4);  }
+| CONSULTA STRING  COMMA sdesignator { $$ = nodo2(consulta, $2, $4);  }
 ;
 
 lista_campos:

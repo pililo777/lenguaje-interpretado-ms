@@ -218,7 +218,7 @@ init_comandos() {
     comando[20].pfuncion = cargar;
     comando[21].nombre = "run";
     comando[21].pfuncion = runall; 
-    comando[22].nombre = "evalua";
+    comando[22].nombre = "interpretar";
     comando[22].pfuncion = interpretar;
     comando[23].nombre = "editor";
     comando[23].pfuncion = editor;

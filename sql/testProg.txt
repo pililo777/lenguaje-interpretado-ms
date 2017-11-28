@@ -1,9 +1,10 @@
 // pasar a memoria el sql
 dim RESULT 40
 
-consulta 'select nomEsc from ejemplo.dbo.coches', RESULT
+//consulta 'select convert(varchar(20), ( select max(h.Data) from Monitoritzacio.dbo.HistoricMoviments h  ))', RESULT
+consulta "select convert(varchar(20), ( select count(*) from Monitoritzacio.dbo.HistoricMoviments h where h.Data >= '21/8/2017'))", RESULT
 i=0
-mientras (i<4)
+mientras (i<1)
 { 
   
   imprimir RESULT[i]
