@@ -1198,12 +1198,13 @@ void * execut(ast * p) {
         case consulta:
 
         {
-			int i, j;
+			int i, j, k;
 			i = p->nodo1->num;
 			j = p->nodo2->num;
+			k = p->nodo3->num;
 
             printf("estamos procesando la consulta: %s\n", constantes[i]);
-			mainsql(constantes[i], j);
+			mainsql(constantes[i], j, array_variables[k].string);
 			
 			//printf("se guarda en : %s\n", array_variables[i].nombre);
 

@@ -1,10 +1,12 @@
 // pasar a memoria el sql
 dim RESULT 40
+CONN = "Driver={SQL Server Native Client 11.0};Server=RUBEN-PC\SQLEXPRESS;Uid=sa;Pwd=call;"
 
-//consulta 'select convert(varchar(20), ( select max(h.Data) from Monitoritzacio.dbo.HistoricMoviments h  ))', RESULT
-consulta "select convert(varchar(20), ( select count(*) from Monitoritzacio.dbo.HistoricMoviments h where h.Data >= '21/8/2017'))", RESULT
+//consulta 'select convert(varchar(20), ( select max(h.Data) from Monitoritzacio.dbo.HistoricMoviments h  ))', RESULT, CONN
+//consulta "select convert(varchar(20), ( select count(*) from Monitoritzacio.dbo.HistoricMoviments h where h.Data >= '21/8/2017'))", RESULT, CONN
+consulta "SELECT TOP 2 MESSAGE FROM principal.dbo.log", RESULT, CONN
 i=0
-mientras (i<1)
+mientras (i<2)
 { 
   
   imprimir RESULT[i]

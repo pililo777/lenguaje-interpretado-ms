@@ -135,7 +135,8 @@ int *parametro1;
 int *parametro2;
 
 wchar_t *consulta1;
- 
+wchar_t *consulta2;
+
 /* FIN DE VARIABLES GLOBALES */
 
 
@@ -276,17 +277,29 @@ extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 //int obtenerllave(tipollave *);
 extern void mainsql2(int j);
 
-void mainsql(char * constante, int j) {
+void mainsql(char * constante, int j, char * constante2) {
+	//constante es la consulta
 	int i = strlen(constante)+1;
 	consulta1 =  (malloc(i * sizeof(wchar_t)));
 	mbstowcs(consulta1, constante, strlen(constante));
 	//
     consulta1[i-1] = 0;
     //printf("%s\n", consulta);
-	i = wcslen(consulta1);
+	//i = wcslen(consulta1);
+
+	//consulta2 es la cadena de conexion
+	 i = strlen(constante2) + 1;
+	consulta2 = (malloc(i * sizeof(wchar_t)));
+	mbstowcs(consulta2, constante2, strlen(constante2));
+	//
+	consulta2[i - 1] = 0;
+	//printf("%s\n", consulta);
+	//i = wcslen(consulta2);
+
     mainsql2(j);
 	fflush(stdout);
     free(consulta1);
+	free(consulta2);
 }
 
 void eliminar_en_indice() {
