@@ -274,9 +274,9 @@ extern xapuntador xraiz;
 
 extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 //int obtenerllave(tipollave *);
-extern void mainsql2();
+extern void mainsql2(int j);
 
-void mainsql(char * constante) {
+void mainsql(char * constante, int j) {
 	int i = strlen(constante)+1;
 	consulta1 =  (malloc(i * sizeof(wchar_t)));
 	mbstowcs(consulta1, constante, strlen(constante));
@@ -284,7 +284,7 @@ void mainsql(char * constante) {
     consulta1[i-1] = 0;
     //printf("%s\n", consulta);
 	i = wcslen(consulta1);
-    mainsql2();
+    mainsql2(j);
 	fflush(stdout);
     free(consulta1);
 }

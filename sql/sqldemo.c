@@ -12,13 +12,14 @@
 #include <sql.h>
 #define _SQLNCLI_ODBC_
 #include "sqlncli.h"
+#include "vars.h"
 
 
 extern wchar_t *consulta1;
-SQLWCHAR consulta2[] = L"SELECT top 2 message from log";
+//SQLWCHAR consulta2[] = L"SELECT top 2 message from log";   "select nomEsc from ejemplo.dbo.coches"
 
 
-int mainsql2(void)
+int mainsql2(int j)
 {
 	SQLHENV henv;
 	SQLHDBC hdbc;
@@ -40,7 +41,9 @@ int mainsql2(void)
 	SQLSMALLINT OutConnStrLen;
 	HWND desktopHandle;
 
-	int i = 0;
+	int i = 0; int k = 0;
+	char * vector;
+	
 	rgbValue = &i;
 
 	desktopHandle = GetDesktopWindow();
@@ -75,10 +78,16 @@ int mainsql2(void)
 						//retcode = SQLBindCol(hstmt, 2, SQL_C_CHAR, szCity, 200, &cbCity);
 
 
-						for (i; ; i++) {
+						for (int im = 0; ; im++) {
+
 							retcode = SQLFetch(hstmt);    //COGE EL SIGUEINTE REGISTRO DE LA TABLA
 							if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
-								printf("%s \n", szText);
+								{
+									i = (int)array_variables[j].numero;    // el indice de la variable (designator)
+									vector = arrayVectoresAlfa[i];   // hasta 32 vectores
+									k = im * 127;
+									strcpy(&vector[k], szText);   //expresion y expresion 
+								}
 							else
 								break;
 						}

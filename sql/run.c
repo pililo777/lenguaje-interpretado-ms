@@ -1064,7 +1064,7 @@ gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
 char nombrefuncion[50];
 
-extern void mainsql(char *);
+extern void mainsql(char *, int j);
 
 void * execut(ast * p) {
     
@@ -1198,11 +1198,14 @@ void * execut(ast * p) {
         case consulta:
 
         {
-			int i;
+			int i, j;
 			i = p->nodo1->num;
+			j = p->nodo2->num;
 
             printf("estamos procesando la consulta: %s\n", constantes[i]);
-			mainsql(constantes[i]);
+			mainsql(constantes[i], j);
+			
+			//printf("se guarda en : %s\n", array_variables[i].nombre);
 
         }
         break;
@@ -1731,7 +1734,7 @@ void * execut(ast * p) {
             
           case dimensionar_alfa:
         {
- // DIM sdesignator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+ // DIM sdesignator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector alfa */ }
             char * vector;
             int i;
             int j;

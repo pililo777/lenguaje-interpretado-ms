@@ -159,7 +159,7 @@ statement:
 | BUSCAR REGISTRO designator designator { $$=nodo2(buscar_registro, $3, $4); }
 | ACTUALIZAR REGISTRO designator designator { $$=nodo2(actualizar_registro, $3, $4); }
 | PAUSA { $$ = nodo0(pausa, $1); }
-| CONSULTA LITERAL { $$ = nodo1(consulta, $2);  }
+| CONSULTA LITERAL  COMMA sdesignator { $$ = nodo2(consulta, $2, $4);  }
 ;
 
 lista_campos:

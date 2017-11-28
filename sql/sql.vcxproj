@@ -153,6 +153,7 @@
   <ItemGroup>
     <Text Include="hist.txt" />
     <Text Include="ReadMe.txt" />
+    <Text Include="testProg.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bt.c" />

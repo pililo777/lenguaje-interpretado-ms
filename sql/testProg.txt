@@ -1,0 +1,12 @@
+// pasar a memoria el sql
+dim RESULT 40
+
+consulta 'select nomEsc from ejemplo.dbo.coches', RESULT
+i=0
+mientras (i<4)
+{ 
+  
+  imprimir RESULT[i]
+  i = i + 1
+  
+}
