@@ -1029,7 +1029,7 @@ copyrigth() {
     fprintf(stdout, " \n");
     fprintf(stdout, "*** Interprete de Comandos\n");
 
-    fprintf(stdout, "Version 1.0.\n");
+    fprintf(stdout, "Version 1.0.2  Nov 2017\n");
     fprintf(stdout, "Digite help para ver una lista de comandos.\n");
 }
 

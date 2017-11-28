@@ -851,12 +851,17 @@ parse() {
 
 help(char *param, char *param2) {
     printf( "comandos:\n");
-    printf( " l ls lc help pwd clear quit buffer store ? display memory\n");
+    printf( " consulta l ls lc help pwd clear quit buffer store ? display memory\n");
     printf( " use buscar list close do arbol buscar  insertar  eliminar\n");
     printf( " editorgtk cargar run  cargalib descargalib vars var n   prog n\n");
     printf( " editor evalua \n");
     printf( " modify buscar_posicion strcmp \n");
-    
+	printf(" consulta VARALFA, VECTORALFA, VARALFA2     \n");
+	printf("          VARALFA es la consulta sql \n");
+	printf("          VECTORALFA es la matriz para almacenar el resultado de una consulta SELECT \n");
+	printf("          VARALFA2 es la cadena de conexion a la base de datos \n");
+	printf(" inter:   alterna entre modo dbase y modo interactivo\n");
+
 }
 
 buffer() {
