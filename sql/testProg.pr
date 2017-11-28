@@ -9,7 +9,8 @@ i=0
 mientras (i<2)
 { 
   
-  imprimir RESULT[i]
+  imprimir RESULT[i] 
   i = i + 1
+  
   
 }

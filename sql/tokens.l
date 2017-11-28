@@ -234,7 +234,7 @@ if (depurar)
 	return SNAME; 
 	}
 
-
+\r      { ; }
 \       { ; }
 \n      { nextline(); }
 \t      { ; }
