@@ -17,7 +17,7 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
     <Text Include="hist.txt" />
-    <Text Include="testProg.txt" />
+    <Text Include="testProg.pr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqldemo.c">
