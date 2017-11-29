@@ -16,15 +16,19 @@ extern struct_variable   array_variables[256];
  * */
 
 
-
+cairo_surface_t *imagen;
 extern ast * procedimientos[127]; //cambiar esta forma
 extern double var[127];  // 127 variables numericas e indices a variables alfa y literales
 
-static void do_drawing(cairo_t *, GdkEventExpose *);
+static void do_drawing(cairo_t * );
  ast* nodografico;
  ast* nodografico2;
 extern int flag_ventanas;
 extern double evalua(ast*);
+GtkWidget *darea;
+GtkWidget *window;
+const char *filename = "imagen1.png";
+cairo_t *cr2;
 
 struct {
   int count;
@@ -53,70 +57,62 @@ scribble_expose_event (GtkWidget      *widget,
 */
 
 // en este evento programar el redibujado de la ventana grafica
-static gboolean on_draw_event(GtkWidget *widget, GdkEventExpose *event,   gpointer user_data)
+static gboolean on_draw_event(GtkWidget *widget, cairo_t *cr,   gpointer user_data)
 {
-  cairo_t *cr;
-  cr = gdk_cairo_create (gtk_widget_get_window (widget));
-  printf("Antes-do draw\n");
+  //cairo_t *cr;
+	do_drawing(cr);
   
-  do_drawing(cr, event);
-  
-  cairo_destroy (cr);
-  printf("Despues-do draw\n");
+  //cairo_destroy(cr);
 
   return FALSE;
 }
 
-static void do_drawing(cairo_t *cr, GdkEventExpose *event)
+static void do_drawing(cairo_t *cr )
 {
-    
-/*
-    double x,y, x1, y1;
-    
-    if (flag_ventanas != 1) return;
-    
-    x = var[(int) nodografico2->nodo1->num];
-    y = var[(int) nodografico2->nodo2->num];
-    x1 = var[(int) nodografico2->nodo3->num];
-    y1 = var[(int) nodografico2->nodo4->num];
-    
-  cairo_set_source_rgb(cr, 0, 0, 1);
-  cairo_set_line_width(cr, 2.0);
- */
-  
-   printf("inicio dodrawing");
+	/*cairo_operator_t op = CAIRO_OPERATOR_ADD;
+	cairo_t *first_cr, *second_cr;
+	cairo_surface_t *first, *second;
+	first = cairo_surface_create_similar(cairo_get_target(cr),
+		CAIRO_CONTENT_COLOR_ALPHA, 0, 0);
 
-/*
+	second = cairo_surface_create_similar(cairo_get_target(cr),
+		CAIRO_CONTENT_COLOR_ALPHA, 0, 0);
 
-  int i, j;
-  for (i = 0; i <= glob.count - 1; i++ ) {
-      for (j = 0; j <= glob.count - 1; j++ ) {
-          
-          cairo_move_to(cr, glob.coordx[i], glob.coordy[i]);
+	first_cr = cairo_create(first);
+	second_cr = cairo_create(second);
 */
-/*
-           gdk_cairo_rectangle (cr, &event->area);
-*/
-/*
-          cairo_line_to(cr, glob.coordx[j], glob.coordy[j]);
-          printf("line to %lf -  %lf\n", glob.coordx[i], glob.coordy[i]);
-      }
-  }
 
-  glob.count = 0;
-*/
-  
-  
-  //algoritmo para  la instruccion LINEAS
-/*
- cairo_move_to(cr,  x,  y);
- cairo_line_to(cr,  x1,   y1);
-  
-  
-  
- cairo_stroke(cr); 
-  printf("*****fin dodrawing");
-*/
+	cr = gdk_cairo_create(gtk_widget_get_window(darea));
+	cairo_set_source_surface(cr, imagen, 0.0, 0.0);
+	//cairo_paint(cr);
+
+
+
+
+
+	/*cairo_set_source_rgb(second_cr, 0, 0, 0);
+	cairo_select_font_face(second_cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
+		CAIRO_FONT_WEIGHT_NORMAL);
+	cairo_set_font_size(second_cr, 40.0);
+	cairo_move_to(second_cr, 100.0, 150.0);
+	cairo_show_text(second_cr, "Disziplin ist Macht.");
+
+	cairo_set_operator(cr, op);
+	cairo_set_source_surface(cr, second, 0, 0);*/
+
+	cairo_paint(cr);
+
+	/*cairo_set_source_surface(cr, first, 0, 0);
+	cairo_paint(cr);
+
+	cairo_surface_destroy(first);
+	cairo_surface_destroy(second);
+
+	cairo_destroy(first_cr);
+	cairo_destroy(second_cr);*/
+	
+
+ 
 }
 
 GtkWidget *ventanaGrafica;
@@ -176,19 +172,14 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
     return TRUE;
 }
    
-  GtkWidget *darea;    
-  GtkWidget *window;
-  const char *filename = "imagen1.png";
+  
    
  // **** DIBUJAR UNA LINEA ****
 void dibujarlinea() {
 	double x, y, x1, y1;
     cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (darea));
-
  
-
-    
     if (flag_ventanas != 1) return;
     
     x = (double)  evalua( nodografico2->nodo1);
@@ -224,8 +215,8 @@ void dibujarlinea() {
   cairo_destroy (cr);
 //  printf("D-do draw\n");
   
-  cairo_surface_t *imagen = cairo_image_surface_create(CAIRO_FORMAT_RGB24, 800, 600);
-  cairo_t *cr2 = cairo_create(imagen);
+   imagen = cairo_image_surface_create(CAIRO_FORMAT_RGB24, 800, 600);
+  cr2 = cairo_create(imagen);
   gdk_cairo_set_source_window(cr2,
 	  gtk_widget_get_window(GTK_WIDGET(window)),
 	  0,
@@ -234,12 +225,13 @@ void dibujarlinea() {
 
   cairo_paint(cr2);
 
-  cairo_status_t status1 = 
-  cairo_surface_write_to_png(imagen,
-	  filename);
+  //cairo_status_t status1 = 
+  //cairo_surface_write_to_png(imagen,
+	 // filename);
 
-  cairo_destroy(cr2);
-  cairo_surface_destroy(imagen);
+ // cairo_destroy(cr2);
+  //cairo_surface_destroy(imagen);
+ 
 
 //  return FALSE;
 }
@@ -258,13 +250,14 @@ int mainGraph()
 
 
   darea = gtk_drawing_area_new();
-  gtk_widget_set_name(darea, "hola darea" );
-  gtk_widget_set_name(darea, "hola window" );
+  //gtk_widget_set_name(darea, "hola darea" );
+  //gtk_widget_set_name(darea, "hola window" );
   gtk_container_add(GTK_CONTAINER(window), darea);
  
   gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
 
-  g_signal_connect(darea, "expose-event",   G_CALLBACK(on_draw_event), NULL); 
+  //g_signal_connect(darea, "expose-event",   G_CALLBACK(on_draw_event), NULL); 
+  g_signal_connect(G_OBJECT(darea), "expose-event", G_CALLBACK(on_draw_event), NULL);
   //  g_signal_connect(window, "destroy",   G_CALLBACK(destroy), NULL);  
     
   g_signal_connect(window, "button-press-event",    G_CALLBACK(clicked), NULL);
