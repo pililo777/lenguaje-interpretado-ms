@@ -1,3 +1,10 @@
+29 nov 2017
+-----------
+* instrucción "consulta" para acceder a bases de datos.
+  devuelve el resultado en una matriz alfanumérica.
+
+
+-----------
 Include:
 
 -mms-bitfields -pthread -mms-bitfields -IC:/msys64/mingw64/include/gtk-2.0 
