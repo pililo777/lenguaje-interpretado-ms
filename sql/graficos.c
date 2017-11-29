@@ -176,39 +176,18 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
     return TRUE;
 }
    
-  GtkWidget *darea;
+  GtkWidget *darea;    
+  GtkWidget *window;
+  const char *filename = "imagen1.png";
    
  // **** DIBUJAR UNA LINEA ****
 void dibujarlinea() {
-   // printf("intentamos redibujar....\n");
-    //    gtk_widget_queue_draw(darea);
+	double x, y, x1, y1;
     cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (darea));
 
-/*
-    cairo_text_extents_t te;
-    cairo_set_source_rgb(cr, 0.0, 8.0, 5.0);
-    cairo_select_font_face(cr, "Georgia",
-            CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    
-    cairo_set_font_size(cr, 12);
+ 
 
-   cairo_text_extents(cr, " ", &te);
-cairo_move_to(cr, 0, 0);
-    
-    cairo_show_text(cr, "ejemplo de texto");
-  
-  
-cairo_set_source_rgb (cr, 0, 8, 4);
-cairo_rectangle (cr, 0, 0, 100, 100);
-cairo_fill (cr);
-*/
-  
-  
-//  printf("A-do draw\n");
-  
-  //do_drawing(cr, event);
-  double x,y, x1, y1;
     
     if (flag_ventanas != 1) return;
     
@@ -245,7 +224,22 @@ cairo_fill (cr);
   cairo_destroy (cr);
 //  printf("D-do draw\n");
   
-   
+  cairo_surface_t *imagen = cairo_image_surface_create(CAIRO_FORMAT_RGB24, 800, 600);
+  cairo_t *cr2 = cairo_create(imagen);
+  gdk_cairo_set_source_window(cr2,
+	  gtk_widget_get_window(GTK_WIDGET(window)),
+	  0,
+	  0);
+
+
+  cairo_paint(cr2);
+
+  cairo_status_t status1 = 
+  cairo_surface_write_to_png(imagen,
+	  filename);
+
+  cairo_destroy(cr2);
+  cairo_surface_destroy(imagen);
 
 //  return FALSE;
 }
@@ -253,7 +247,7 @@ cairo_fill (cr);
 int mainGraph()
 //int main(int argc, char *argv[])
 {
-  GtkWidget *window;
+  
 
   
 //  glob.count = 0;
