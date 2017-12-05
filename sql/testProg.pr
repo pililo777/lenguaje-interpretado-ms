@@ -8,8 +8,6 @@ CONN="Driver={SQL Server Native Client 11.0};Server=DESKTOP-SJA365E\MSS10135;Uid
 //consulta "select convert(varchar(20), ( select count(*) from Monitoritzacio.dbo.HistoricMoviments h where h.Data >= '21/8/2017'))", RESULT, CONN
 consulta "SELECT TOP 4 [nomEsc]  FROM [ejemplo].[dbo].[coches]", RESULT, CONN
 
-graficos
-
 //consulta "SELECT TOP 2 MESSAGE FROM principal.dbo.log", RESULT, CONN
 i=0
 mientras (i<4)
