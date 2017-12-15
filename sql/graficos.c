@@ -197,17 +197,27 @@ void dibujarlinea() {
    
  cairo_move_to(cr,  x,  y);
  if (nodografico2->tipo == dibuja_linea)
- cairo_line_to(cr,  x1,   y1);
- else
-     cairo_arc(cr, x, y, x1, 0, 2*3.1415);
-  
-  
-  
- cairo_stroke_preserve(cr); 
- if (nodografico2->tipo != dibuja_linea) {
-     cairo_set_source_rgb(cr, 0.3, 0.4, 0.6);   //color de relleno
-     cairo_fill(cr);
+ {
+	 cairo_line_to(cr, x1, y1);
+	 cairo_stroke_preserve(cr);
+ 
  }
+
+ else {
+
+	     cairo_arc(cr, x, y, x1, 0, 2 * 3.1415);
+		 cairo_stroke_preserve(cr);
+	     cairo_set_source_rgb(cr, 0.3, 0.4, 0.6);   //color de relleno
+	     cairo_fill(cr);
+ }
+  
+
+  
+
+ //if (nodografico2->tipo != dibuja_linea) {
+ //    cairo_set_source_rgb(cr, 0.3, 0.4, 0.6);   //color de relleno
+ //    cairo_fill(cr);
+ //}
   //printf("*****fin dodrawing");
    
    

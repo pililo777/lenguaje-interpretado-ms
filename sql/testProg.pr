@@ -11,7 +11,7 @@ consulta "SELECT top 4 titulo_libro from mydb.dbo.libro", RESULT, CONN
 
 //consulta "SELECT TOP 4 [nomEsc]  FROM [ejemplo].[dbo].[coches]", RESULT, CONN
 
-//graficos
+graficos
 
 //consulta "SELECT TOP 2 MESSAGE FROM principal.dbo.log", RESULT, CONN
 
