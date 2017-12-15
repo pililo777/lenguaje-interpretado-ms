@@ -1,4 +1,4 @@
-#define variableArray1 20
+//#define variableArray1 20
 
 //usando sublime como editor de texto alternativo a Netbeans
 // version para github
@@ -58,7 +58,7 @@ xapuntador xraiz;
 
 /* fin de bt.c */
 
-void nuevo(xapuntador * xp, const int variableArray) /* en xp se pondra el numero de */
+void nuevo(xapuntador * xp, int variableArray) /* en xp se pondra el numero de */
 /* registro ultimo - 1 */ {
 
  
@@ -79,12 +79,12 @@ void nuevo(xapuntador * xp, const int variableArray) /* en xp se pondra el numer
     printf("el nuevo nodo sera %li\n", *xp);
 }
 
-grabarnodo(xapuntador *xp, struct xnodo *xpn, const int variableArray) {
+grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
  
     short int conteo = 0;
     long int   rama;
     long int   datoInt;
-    char buffer[variableArray1];
+    char buffer[55];
     
     int tamanyoRegistro;
      // printf("Tamaño registro: %d\n",variableArray);
@@ -101,7 +101,7 @@ grabarnodo(xapuntador *xp, struct xnodo *xpn, const int variableArray) {
     for (int i=1;i<5;i++) {
         fseek(arch, posicion, SEEK_SET);
         if (i<=conteo) {
-        strcpy(buffer, xpnLocal.xllave[i-1]);
+        strncpy(buffer, xpnLocal.xllave[i-1], variableArray);
         fwrite(&buffer, 1, variableArray, arch);
         }
         posicion+=variableArray;
@@ -129,12 +129,12 @@ grabarnodo(xapuntador *xp, struct xnodo *xpn, const int variableArray) {
 */
 }
 
-leenodo(xapuntador *xp, struct xnodo *xpn,const int variableArray) {
+leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
 
     short int conteo;
     long int   rama;
     long int   datoInt;
-    char buffer[variableArray1];
+    char buffer[55];
     
     memset(buffer, 0, sizeof(buffer));
     int tamanyoRegistro;
@@ -154,7 +154,7 @@ leenodo(xapuntador *xp, struct xnodo *xpn,const int variableArray) {
     for (int i=1;i<5;i++) {
         fseek(arch, posicion, SEEK_SET);
         fread(&buffer, 1, variableArray, arch);
-        strcpy(xpnLocal.xllave[i-1], buffer);
+        strncpy(xpnLocal.xllave[i-1], buffer, variableArray);
        
         posicion+=variableArray;
     }

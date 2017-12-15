@@ -1034,14 +1034,16 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
     int largo;
     int indice;
     char * nombre;
-    //char buff[100];
+    char buff[100];
     if (lista_de_campos->tipo!=listacampos) return;
     nnodos = lista_de_campos->subnodos;
     if (nnodos == 3) {
         largo = lista_de_campos->nodo3->num;
         indice = lista_de_campos->nodo2->num;
         nombre = array_variables[indice].nombre;
-        fwrite(array_variables[indice].string, 1, largo, handler);
+		memset(buff, (unsigned char)0, 100);
+		strncpy(buff, array_variables[indice].string, strlen(array_variables[indice].string));
+		fwrite(buff, 1, largo, handler);
         if (depurar)
         printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
         guardar_campos(lista_de_campos->nodo1, handler);
@@ -1051,7 +1053,9 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
         largo = lista_de_campos->nodo2->num;
         indice = lista_de_campos->nodo1->num;
         nombre = array_variables[indice].nombre;
-        fwrite(array_variables[indice].string, 1, largo, handler);
+		memset(buff, (unsigned char)0, 100);
+		strncpy(buff, array_variables[indice].string, strlen(array_variables[indice].string));
+		fwrite(buff, 1, largo, handler);
         if (depurar)
         printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
     }
@@ -1318,7 +1322,7 @@ void * execut(ast * p) {
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
-            tam = tamanio+1;  // temporalmente por el fin de linea
+            tam = tamanio+3;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
             fseek(handler2, pos, SEEK_SET);
             leer_campos(registro->nodo3, handler2);
@@ -1354,7 +1358,7 @@ void * execut(ast * p) {
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
-            tam = tamanio+1;  // temporalmente por el fin de linea
+            tam = tamanio+3;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
             
             fseek(handler2, pos, SEEK_SET);
@@ -1484,7 +1488,7 @@ void * execut(ast * p) {
             //calculamos el numero de registro para el nuevo registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
-            tam = tamanio+1;  // temporalmente por el fin de linea
+            tam = tamanio+3;  // temporalmente por el fin de linea
             handler2 = fopen(datafile, "r+");
             fseek(handler2, 0, SEEK_END);
             pos = ftell(handler2);
@@ -1501,7 +1505,7 @@ void * execut(ast * p) {
             // la clave ya ha sido insertada con el numero de registro correspondiente
             // solamente falta insertar el registro de datos en fichero dbf
                 guardar_campos(registro->nodo3, handler2);
-                fwrite("\n", 1, 1, handler2);  //quitar esto posteriormente
+                fwrite("\r\n", 1, 2, handler2);  //quitar esto posteriormente
             }
             fclose(handler2);
         
