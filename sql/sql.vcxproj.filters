@@ -68,5 +68,9 @@
   <ItemGroup>
     <None Include="grammar.y" />
     <None Include="tokens.l" />
+    <None Include="ventanas.pr" />
+    <None Include="CONTACTS.CSV" />
+    <None Include="LISTADO.PR" />
+    <None Include="ARCHIVOS.PR" />
   </ItemGroup>
 </Project>
