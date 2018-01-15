@@ -23,7 +23,7 @@
     <ProjectGuid>{45413C17-1AD5-4506-959B-1B9D8DD3CB6E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>sql</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

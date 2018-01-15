@@ -1108,7 +1108,7 @@ void * execut(ast * p) {
     
         //resalta la linea del editorgtk en ejecucion
         //si no estamos interpretando buff1
-        if (ejecuta_desde_editor ) {
+        if (ejecuta_desde_editor  && idx_prg <30 ) {
         
         //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
 
