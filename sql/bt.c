@@ -108,7 +108,7 @@ grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
     }
     
     
-    fwrite(&conteo, 1, variableArray, arch);
+    fwrite(&conteo, 1, sizeof(conteo), arch);
     posicion+=2;
     for (int i=1;i<6;i++) {
         fseek(arch, posicion, SEEK_SET);
