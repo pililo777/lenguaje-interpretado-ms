@@ -72,6 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\msys64\mingw64\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\msys64\mingw64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -95,8 +97,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>c:/gtk/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib</AdditionalOptions>
+      <AdditionalLibraryDirectories>C:/msys64/mingw64/bin;D:/gtk/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib  </AdditionalOptions>
+      <AdditionalDependencies>C:\temp2\pcre-7.9-dll\pcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -41,7 +41,8 @@ desde numeroreg = 1 hasta 6
 	imprimir DIRECCION
 	imprimir APELLIDO
 	imprimir TELEFONO
-	vv=0   leer vv
+	vv=0
+	//leer vv
 }
 
 close //  cierra el indice con la ultima raiz
