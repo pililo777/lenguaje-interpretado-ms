@@ -2253,7 +2253,7 @@ void * execut(ast * p) {
         case imprimir_literal:
             
             fflush(stdout);
-            printf("%s", constantes [(int) p->nodo1->num]);
+            printf("%s\n\n", constantes [(int) p->nodo1->num]);
             sprintf(mensaje2, "%s", constantes [(int) p->nodo1->num]);
             strcat(msgbox, mensaje2);
             strcat(msgbox, " ");

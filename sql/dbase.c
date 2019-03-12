@@ -146,9 +146,10 @@ wchar_t *consulta2;
 int main(int argc, const char **argv)
 {
     initProcedimientos();
-    copyrigth();
+ //   copyrigth();
     if (argc>1) {
         old_main(  argc,  argv);
+		exit(0);
     }
 /*
     fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());

@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 /CodeGraphData/Result_solution/xml
 /CodeGraphData
+/sql/nuevos contactos.ndx
+/InterSQL.zip
