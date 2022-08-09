@@ -1,7 +1,7 @@
 //run.c github
 #include <stdio.h>
 //descomentar:
-// include pcreposix.h
+#include <pcreposix.h>
 //#include <ncurses.h>
 #include <math.h>
 #define rando() ((double)rand()/(RAND_MAX+1))
@@ -2773,7 +2773,9 @@ void evalua_doble(elnodo * p, elnodo * q) {
 */
 
 //static int prof = 0;
-//descomentar: regmatch_t captures[2];
+//descomentar: 
+ 
+ regmatch_t captures[2];
 
 double evalua(ast * p) {
     double res;
@@ -2823,8 +2825,8 @@ double evalua(ast * p) {
                         k = comprobar_regex(a, b);
                         vector = arrayVectores[m];
 						//descomentar:
-                        /*vector[0] = (double) captures[0].rm_so;
-                        vector[1] = (double) captures[0].rm_eo;*/
+                        vector[0] = (double) captures[0].rm_so;
+                        vector[1] = (double) captures[0].rm_eo;
                         res = (double) k;
                         return res;
                         
@@ -3094,38 +3096,38 @@ double evalua(ast * p) {
 
 short comprobar_regex(char * expregular, char * texto) {
 	//descomentar:
-    //regex_t regex;
-    //int reti;
-    //char msgbuf[100];
-    //
-    ///*
-    //int ii;
-    //ii = (sizeof(captures)/sizeof(captures[0]));
-    //*/
-    //
-    ///* Compile regular expression */
-    //reti = regcomp(&regex, expregular,  REG_EXTENDED);  //"^a[[:alnum:]]"
-    //if (reti) {
-    //    fprintf(stderr, "No se pudo compilar regex\n");
-    //    exit(1);
-    //}
+    regex_t regex;
+    int reti;
+    char msgbuf[100];
+    
+    /*
+    int ii;
+    ii = (sizeof(captures)/sizeof(captures[0]));
+    */
+    
+    /* Compile regular expression */
+    reti = regcomp(&regex, expregular,  REG_EXTENDED);  //"^a[[:alnum:]]"
+    if (reti) {
+        fprintf(stderr, "No se pudo compilar regex\n");
+        exit(1);
+    }
 
-    ///* Execute regular expression */
-    //reti = regexec(&regex,  texto ,  2, captures, 0);   //"abc"
-    //if (!reti) {
-    //    return 1;  //puts("Match");
-    //}
-    //else if (reti == REG_NOMATCH) {
-    //    return 0; //puts("No match");
-    //}
-    //else {
-    //    regerror(reti, &regex, msgbuf, sizeof(msgbuf));
-    //    fprintf(stderr, "Regex ha fallado: %s\n", msgbuf);
-    //    exit(1);
-    //}
+    /* Execute regular expression */
+    reti = regexec(&regex,  texto ,  2, captures, 0);   //"abc"
+    if (!reti) {
+        return 1;  //puts("Match");
+    }
+    else if (reti == REG_NOMATCH) {
+        return 0; //puts("No match");
+    }
+    else {
+        regerror(reti, &regex, msgbuf, sizeof(msgbuf));
+        fprintf(stderr, "Regex ha fallado: %s\n", msgbuf);
+        exit(1);
+    }
 
-    ///* Free memory allocated to the pattern buffer by regcomp() */
-    //regfree(&regex);
+    /* Free memory allocated to the pattern buffer by regcomp() */
+    regfree(&regex);
 
 }
 

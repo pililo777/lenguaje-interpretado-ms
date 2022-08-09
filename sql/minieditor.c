@@ -1,6 +1,7 @@
 /* minieditor.c modificado */
 #include <malloc.h>
 //#include <regex.h>
+#include <pcreposix.h>
 //#include <strings.h>
 
 #define xrun
@@ -164,11 +165,11 @@ void initmyModule() {
 }
 #endif
 
-/*
+
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include <string.h>
-*/
+
 extern int idx_vec;
 extern double * arrayVectores[32];
 extern int idx_win;
@@ -177,6 +178,7 @@ extern int err_number;
 
 #include "nodo.h"
 
+extern void execut(ast*);
 
 
 
@@ -389,6 +391,8 @@ on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern int gtk_iniciado;
 extern int ejecuta_desde_editor;
 
+GtkWidget* window;
+
 int
 main_anterior (int argc, char *argv[])
 //main_old()
@@ -396,7 +400,7 @@ main_anterior (int argc, char *argv[])
    memoria = 0;
    ejecuta_desde_editor = 1; // true
         
-    GtkWidget *window;
+    
 
   // gtk_init (&argc, &argv);
     if (!gtk_iniciado) {
@@ -546,8 +550,8 @@ velocidad2 (GtkButton * button, gpointer user_data)
     printf("%lu\n", tiempo);
 }
 //
-//extern short comprobar_regex(char * , char * );
-//extern regmatch_t captures[2];
+extern short comprobar_regex(char * , char * );
+extern regmatch_t captures[2];
 
 GtkWidget *window;
  GtkWidget *label1, *label2, *label3, *label4;
@@ -567,88 +571,88 @@ GtkWidget *window;
  const char  fore_back[] = {'F', 'F', 'F', 'F', 'F', 'F', 'B'};
  
 
-//void
-//resaltarAlfanum (GtkButton * button, gpointer user_data)
-//{
-//    //he visto un codigo que tiene la funcion debug para imprimir lineas donde
-//    //suceden errores pero no recuerdo donde era.
-//    //creo que era en el proyecto Solid.
-//    //por ahora no acepta EÑES ni caracteres acentuados.
-//    
-//    short i;
-//    
-//    
-//    //GtkTextIter start_match, end_match;
-//    gboolean selected;    
-//    gchar *text; 
-//    gint j, k;
-//    int idx;
-//    
-//    char * regex;
-//    
-//    for (idx=0; idx<numelem; idx++){
-//        
-//        regex = RegExps[idx];
-//        printf ("%s\n", RegExps[idx]);
-//        buscando = FALSE;
-//        offset  = 0;
-//        
-//    
-//    while (1) {
-//        while (gtk_events_pending()) {
-//             gtk_main_iteration();
-//             gtk_main_iteration();
-//        }
-//        
-//        //inicializa los iteradores:
-//        if (!buscando) 
-//            //primera vez
-//           gtk_text_buffer_get_start_iter(buffer2, &start_find);
-//        else
-//            //cogemos el ultimo final
-//            start_find = end_sel;
-//        gtk_text_buffer_get_end_iter(buffer2, &end_find);
-//
-//        //apuntamos el texto
-//        text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_find,
-//                  &end_find, FALSE);
-//        
-//        //printf("%d\n", strlen(text));
-//        
-//        //if (strlen(text)==0) break;
-//
-//        i = comprobar_regex(regex, text);
-//        
-//        if (i==0) break;
-//
-//        j = captures[0].rm_so+offset;
-//        k = captures[0].rm_eo+offset;
-//        //printf("%d -- %d\n", j, k);
-//
-//        //colocar el principio
-//
-//        gtk_text_buffer_get_iter_at_offset (buffer2, &start_sel, j);
-//        gtk_text_buffer_get_iter_at_offset (buffer2, &end_sel, k);
-//
-//        //borrar tags
-///*
-//        if (idx==1)
-//        gtk_text_buffer_remove_tag_by_name(buffer2, "test_fg", 
-//            &start_find, &end_find);  
-//*/
-//
-//        
-//        //printf("%s\n", colorTags[idx]  );
-//        gtk_text_buffer_apply_tag_by_name(buffer2, colorTags[idx], 
-//            &start_sel, &end_sel);
-//
-//        offset = gtk_text_iter_get_offset(&end_sel);
-//        //printf ("offset %d\n", offset);
-//
-//         buscando = TRUE;
-//    }}
-//    
-//}
+void
+resaltarAlfanum (GtkButton * button, gpointer user_data)
+{
+    //he visto un codigo que tiene la funcion debug para imprimir lineas donde
+    //suceden errores pero no recuerdo donde era.
+    //creo que era en el proyecto Solid.
+    //por ahora no acepta EÑES ni caracteres acentuados.
+    
+    short i;
+    
+    
+    //GtkTextIter start_match, end_match;
+    gboolean selected;    
+    gchar *text; 
+    gint j, k;
+    int idx;
+    
+    char * regex;
+    
+    for (idx=0; idx<numelem; idx++){
+        
+        regex = RegExps[idx];
+        printf ("%s\n", RegExps[idx]);
+        buscando = FALSE;
+        offset  = 0;
+        
+    
+    while (1) {
+        while (gtk_events_pending()) {
+             gtk_main_iteration();
+             gtk_main_iteration();
+        }
+        
+        //inicializa los iteradores:
+        if (!buscando) 
+            //primera vez
+           gtk_text_buffer_get_start_iter(buffer2, &start_find);
+        else
+            //cogemos el ultimo final
+            start_find = end_sel;
+        gtk_text_buffer_get_end_iter(buffer2, &end_find);
+
+        //apuntamos el texto
+        text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_find,
+                  &end_find, FALSE);
+        
+        //printf("%d\n", strlen(text));
+        
+        //if (strlen(text)==0) break;
+
+        i = comprobar_regex(regex, text);
+        
+        if (i==0) break;
+
+        j = captures[0].rm_so+offset;
+        k = captures[0].rm_eo+offset;
+        //printf("%d -- %d\n", j, k);
+
+        //colocar el principio
+
+        gtk_text_buffer_get_iter_at_offset (buffer2, &start_sel, j);
+        gtk_text_buffer_get_iter_at_offset (buffer2, &end_sel, k);
+
+        //borrar tags
+/*
+        if (idx==1)
+        gtk_text_buffer_remove_tag_by_name(buffer2, "test_fg", 
+            &start_find, &end_find);  
+*/
+
+        
+        //printf("%s\n", colorTags[idx]  );
+        gtk_text_buffer_apply_tag_by_name(buffer2, colorTags[idx], 
+            &start_sel, &end_sel);
+
+        offset = gtk_text_iter_get_offset(&end_sel);
+        //printf ("offset %d\n", offset);
+
+         buscando = TRUE;
+    }}
+    
+}
 
 
 
@@ -862,9 +866,9 @@ create_window() {
     gtk_box_pack_start (GTK_BOX (vbox_main), scrolledwindow, TRUE,
                 TRUE, 0);
 
-    textview = gtk_text_view_new ();
+    textview = (GtkTextView *) gtk_text_view_new ();
     gtk_text_view_set_left_margin ((gpointer) textview, (gint) 60);
-    gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
+    gtk_container_add (GTK_CONTAINER (scrolledwindow), (GtkWidget *) textview);
     
     balign = gtk_alignment_new(0, 2, 2, 0);
     
@@ -889,7 +893,7 @@ gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
     
     buffer2 = buffer;
     //resaltarAlfanum(NULL, NULL);
-    textview2 = textview;
+    textview2 = ( GtkWidget *) textview;
     
 
     //g_signal_connect ((gpointer) window, "delete_event",  G_CALLBACK (gtk_main_quit), NULL);
@@ -943,7 +947,7 @@ gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
   g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), NULL);
 
     //color de fondo del editor
-    gtk_widget_modify_base (textview, GTK_STATE_NORMAL, "#030303");
+    gtk_widget_modify_base ( (GtkWidget *)  textview, GTK_STATE_NORMAL, (GdkColor *) "#030303");
     
     return window;
 }
@@ -1163,22 +1167,31 @@ on_button_load_clicked(GtkButton * button, gpointer user_data) {
 
     g_assert (GTK_IS_TEXT_VIEW (user_data));
 
-    textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data));
+    
+    
+    
+    
+GtkWidget *dialog;
 
-    gtk_text_buffer_cut_clipboard (textbuffer,
-                       gtk_clipboard_get (GDK_NONE), TRUE);
-    
-    
-    
-    
-    GtkWidget *dialog;
+#define GTK_STOCK_CANCEL           "gtk-cancel"
 
 dialog = gtk_file_chooser_dialog_new ("Open File",
-                                      NULL,
+                                      GTK_WINDOW(window),
                                       GTK_FILE_CHOOSER_ACTION_OPEN,
                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                       GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-                                      NULL);
+                                      (void *) 0);
+
+
+
+//dialog = gtk_file_chooser_dialog_new("Save file", GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, "Cancel", 0, "OK", 1, NULL);
+
+
+textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(user_data));
+
+gtk_text_buffer_cut_clipboard(textbuffer,
+    gtk_clipboard_get(GDK_NONE), TRUE);
+
 
 if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
   {
@@ -1809,6 +1822,8 @@ void xxmain (int argc, const char *argv)
         do {
             printf("abriendo el fichero %s\n", argv[i]);
             yyin = fopen(argv[i], "r"); //comentar para depurar
+            yyrestart(yyin);
+            //fseek (yyin, 0, SEEK_SET);
             if (yyin != NULL) {
                 //printf("abierto.....\n");
                 {
@@ -1818,6 +1833,7 @@ void xxmain (int argc, const char *argv)
                     printf("memoria: %li\n", (long) memoria);
                     linenumber  = 1;
                     fclose(yyin);
+                    yyin = NULL;
                     i++;
                 }
             }
