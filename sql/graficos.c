@@ -189,7 +189,9 @@ void dibujarlinea() {
     y1 = (double)   evalua( nodografico2->nodo4);
   //  printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
     
-  cairo_set_source_rgb(cr, 0, 8, 0);  // color de pintado
+  cairo_set_source_rgb(cr, 0.325, 0.542, 0.789);  // color de pintado
+  cairo_set_font_size(cr, 48);
+  cairo_move_to(cr, 120, 130);
   cairo_show_text (cr, "ejemplo de texto");
   cairo_set_line_width(cr, 3.5);
 //   printf("inicio dodrawing");

@@ -23,7 +23,7 @@
     <ProjectGuid>{45413C17-1AD5-4506-959B-1B9D8DD3CB6E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>sql</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,16 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\gtk\include;C:\temp2\pcre-7.9-dll;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\gtk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\GTK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\gtk\include;C:\temp2\pcre-7.9-dll;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\gtk\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,54 +90,49 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-IC:/GTK/include/gtk-2.0 -IC:/GTK/lib/gtk-2.0/include -IC:/GTK/include/atk-1.0 -IC:/GTK/include/cairo -IC:/GTK/include/gdk-pixbuf-2.0 -IC:/GTK/include/pango-1.0 -IC:/GTK/include/glib-2.0 -IC:/GTK/lib/glib-2.0/include -IC:/GTK/include -IC:/GTK/include/freetype2 -IC:/GTK/include/libpng14  
-</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\GTK\lib\glib-2.0\include;C:\GTK\include\glib-2.0;C:\GTK\include\gio-win32-2.0;C:\GTK\include\atk-1.0;C:\GTK\include\gdk-pixbuf-2.0;C:\GTK\include\gtk-2.0\gdk;C:\GTK\include\pango-1.0;C:\GTK\include\glib-2.0\glib;C:\GTK\include\gio-win32-2.0\gio;C:\GTK\include\glib-2.0\gio;C:\GTK\include\pixman-1;C:\GTK\include\gtk-2.0;C:\GTK\include\cairo;C:\GTK\include;C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-mms-bitfields -pthread -mms-bitfields -IC:/gtk/include/gtk-2.0 -IC:/gtk/lib/gtk-2.0/include -IC:/gtk/include/pango-1.0 -IC:/gtk/include/gdk-pixbuf-2.0 -IC:/gtk/include/glib-2.0 -IC:/gtk/lib/glib-2.0/include -IC:/gtk/include/cairo -IC:/gtk/include -IC:/gtk/include/freetype2 -IC:/gtk/include/libpng14</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:/msys64/mingw64/bin;D:/gtk/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib  </AdditionalOptions>
-      <AdditionalDependencies>C:\temp2\pcre-7.9-dll\pcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>c:/gtk/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib</AdditionalOptions>
+      <AdditionalDependencies>/* C:\temp2\pcre-7.9-dll\pcre.lib */;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions> -IC:/GTK/include/gtk-2.0 -IC:/GTK/lib/gtk-2.0/include -IC:/GTK/include/atk-1.0 -IC:/GTK/include/cairo -IC:/GTK/include/gdk-pixbuf-2.0 -IC:/GTK/include/pango-1.0 -IC:/GTK/include/glib-2.0 -IC:/GTK/lib/glib-2.0/include -IC:/GTK/include -IC:/GTK/include/freetype2 -IC:/GTK/include/libpng14  </AdditionalOptions>
-      <AdditionalIncludeDirectories>C:/Program Files (x86)/Microsoft SQL Server/110/SDK/Include;C:\temp2\pcre-7.9-dll</AdditionalIncludeDirectories>
+      <AdditionalOptions>/JMC /GS /analyze- /W3 /Zc:wchar_t /I"C:\GTK\lib\glib-2.0\include" /I"C:\GTK\include\glib-2.0" /I"C:\GTK\include\gio-win32-2.0" /I"C:\GTK\include\atk-1.0" /I"C:\GTK\include\gdk-pixbuf-2.0" /I"C:\GTK\include\gtk-2.0\gdk" /I"C:\GTK\include\pango-1.0" /I"C:\GTK\include\glib-2.0\glib" /I"C:\GTK\include\gio-win32-2.0\gio" /I"C:\GTK\include\glib-2.0\gio" /I"C:\GTK\include\pixman-1" /I"C:\GTK\include\gtk-2.0" /I"C:\GTK\include\cairo" /I"C:\GTK\include" /I"C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Include" /ZI /Gm- /Od /sdl /Fd"Debug\vc141.pdb" /Zc:inline /fp:precise /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_CRT_SECURE_NO_WARNINGS" /D "_UNICODE" /D "UNICODE" /errorReport:prompt /WX- /Zc:forScope /RTC1 /Gd /Oy- /MDd /FC /Fa"Debug\" /EHsc /nologo /Fo"Debug\" /Fp"Debug\sql.pch" /diagnostics:classic </AdditionalOptions>
+      <AdditionalIncludeDirectories>C:/Program Files (x86)/Microsoft SQL Server/110/SDK/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/libpath:C:\GTK\lib gtk-win32-2.0.lib gdk-win32-2.0.lib atk-1.0.lib gio-2.0.lib pangowin32-1.0.lib gdi32.lib pangocairo-1.0.lib gdk_pixbuf-2.0.lib pango-1.0.lib cairo.lib gobject-2.0.lib gmodule-2.0.lib gthread-2.0.lib glib-2.0.lib intl.lib  </AdditionalOptions>
-      <AdditionalLibraryDirectories>C:\GTK\lib</AdditionalLibraryDirectories>
+      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib</AdditionalOptions>
+      <AdditionalLibraryDirectories>d:/gtk/lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions>-IC:/GTK/include/gtk-2.0 -IC:/GTK/lib/gtk-2.0/include -IC:/GTK/include/atk-1.0 -IC:/GTK/include/cairo -IC:/GTK/include/gdk-pixbuf-2.0 -IC:/GTK/include/pango-1.0 -IC:/GTK/include/glib-2.0 -IC:/GTK/lib/glib-2.0/include -IC:/GTK/include -IC:/GTK/include/freetype2 -IC:/GTK/include/libpng14  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft SQL Server\110\SDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/libpath:C:/msys64/mingw64/lib gtk-win32-2.0.lib gdk-win32-2.0.lib gdi32.lib imm32.lib shell32.lib ole32.lib -Wl,-luuid pangowin32-1.0.lib pangocairo-1.0.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib intl.lib  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>C:\temp2\pcre-7.9-dll\pcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
