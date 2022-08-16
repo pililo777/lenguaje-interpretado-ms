@@ -1,12 +1,7 @@
 /*  dbase.c  Region de Includes */ 
 //version para github
 
-
-
-/*
-#include <my_global.h>
-#include <mysql.h>
-*/
+void comandos(char dummy);
 
 #include "nodo.h"
 #include "stdio.h"
@@ -38,7 +33,7 @@
 #define MAXCANTCOMANDOS 128 /* comandos programados en este fuente */
 #define MAXVARIABLES_NUM    120 /* cantidad de vars numericas */
 #define MAXVARIABLES_CHAR   120 /* cantidad de vars alfanumericas */
- 
+ // <editor-fold default-state
 extern int testlib();
 extern int funcionDinamica();
 extern int cargaDinamica();
@@ -56,12 +51,6 @@ extern void initProcedimientos();
 extern void velocidad();
 extern void velocidad2();
 extern void liberar_mem();
-
-
-
-int dbminit();
-int delete();
-int store();
 int status;
 
 
@@ -138,23 +127,43 @@ wchar_t *consulta1;
 wchar_t *consulta2;
 
 /* FIN DE VARIABLES GLOBALES */
+#pragma endregion VARIABLES
 
 
-
+#pragma region FUNCIONES1
 /*   BUCLE PRINCIPAL DE TODO EL PROGRAMA   */
+
+// <editor-fold defaultstate="collapsed" desc="funcion de iniciacion de la lista">
+
+//listaNodo ultimaLista;
+
+void iniciarLista() {
+
+    //ultimaLista = (listaNodo *) malloc(sizeof(struct lista));
+    //ultimaLista->address_nodo = NULL;
+    //ultimaLista->anterior_lista = NULL;
+    //ultimaLista->siguiente_lista = NULL;
+    
+}
+
+// </editor-fold>
 
 int main(int argc, const char **argv)
 {
     initProcedimientos();
- //   copyrigth();
+    //rem
+ 
     if (argc>1) {
         old_main(  argc,  argv);
-		exit(0);
+		//exit(0);
     }
-/*
-    fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());
-*/
-    comandos();
+    else
+    {
+        comandos(NULL);
+
+    }
+ 
+    //
 }
 
 void buscar_en_indice() ;
@@ -164,9 +173,7 @@ void eliminar_en_indice( );
 
 
 
-void 
-
-init_comandos() {
+void init_comandos() {
 
     int i;
  
@@ -346,7 +353,10 @@ void buscar_en_indice() {
 }
 
 
-comandos() {
+
+
+void comandos(char a)
+{
     init_comandos();
     mquit = 0;
     while (mquit == 0) {
@@ -364,10 +374,8 @@ comandos() {
 extern double var[127];  //en run.c
 
 
-
-int  
-
-listavar() {
+// muestra una variable, se llama desde el "."
+int  listavar() {
     int indice;
     printf("variable\n");
     indice = atoi(buff2[1]);
@@ -385,7 +393,7 @@ listavar() {
     return 0;
 }
 
-
+//rem
 extern void * execut(ast * a) ;
 extern int gtk_iniciado;
 
@@ -413,6 +421,12 @@ runprog() {
 
 
 
+
+#pragma endregion FUNCIONES1
+
+
+#pragma region FUNCIONES2
+
 limpiar_buff1() {
 
     int i;
@@ -434,6 +448,8 @@ char arrayBuffers[nro_bufers][128];  /* cantidad de comandos en el historial */
 
 static short ultimaPosicion = -1;
 short posicionRetrocedida = 0;
+
+//rem
 
 char *
 
@@ -787,6 +803,14 @@ display() {
         fprintf(stdout, "Syntax error\n");
 }
  
+
+
+#pragma endregion FUNCIONES2
+
+
+
+
+ 
 quit() {
     mquit = 1;
     // printf("***  FIN DEL PROGRAMA\n\n\n");
@@ -818,7 +842,7 @@ parse() {
     int i, j, k, hubocomilla;
     i = 0;
     j = 0;
-    i = 0;
+
     while (buff1[i]) {
         k = 0;
         hubocomilla = 0;
@@ -838,6 +862,8 @@ parse() {
                 buff2[j][k + 1] = '\0';
             }
             i++;
+            if(i>127) 
+                return 0;
             k++;
             if (hubocomilla) break;
         } /* sale por aqui cuando encuentra un espacio */

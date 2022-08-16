@@ -1,5 +1,17 @@
-/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
-/* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
+/*
+
+    IMPORTANTE:  no dejar espacios entre los | | | !
+   '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux 
+
+
+Ultima compilacion: 8 agosto 2022
+PC:    desktop Rancho WSL
+
+ruta:  /mnt/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1
+
+
+*/
+
 
 %{
 
@@ -9,12 +21,9 @@
 struct ast * nuevonodo(void);
 void  cuentalineas(char * yytext);
 
+#include "nodo.h"
 #include "vars.h"
 
-
- 
-
-#include "nodo.h"
 #include "stdio.h"
 
 // #include "grammar_tab.h"
@@ -22,7 +31,6 @@ void  cuentalineas(char * yytext);
 #ifdef windows
   //#include "grammar_tab.h"
 #endif
-
 
 #ifdef linux
  #include "grammar.tab.h"
@@ -63,7 +71,7 @@ int x;
 {
 
    int i=0; myflag = 0;
-   for (i=0; i<=contadorvar; i++) {
+   for (i=0; i<(contadorvar-1); i++) {
        if (!strcmp(yytext, array_variables[i].nombre)) {
                                 contadorvar--;
                                 variables_count++;
@@ -84,16 +92,20 @@ lineaEjecucion2() {
     lineaAnterior = lineaEjecucion;
     lineaEjecucion = linenumber;
 if (depurar)
-    printf("Linea Ejecucion: %d\n", lineaEjecucion);
+{
+    //printf("Linea Ejecucion: %d\n", lineaEjecucion);
+    printf("-------------------------------------------------\n");
+    printf("linea: %d\n", linenumber);
+    printf("-------------------------------------------------\n");
+}
+
+
 /*
     if (lineaEjecucion==12)
         pausar();
 */
 }
-
 %}
-
-
 %%
 "oo" { return OR; }
 "yy" { return AND; }
@@ -142,6 +154,8 @@ if (depurar)
 "dim" {lineaEjecucion2(); return DIM; }
 "linea" {lineaEjecucion2(); return LINEA; }
 "circulo" {lineaEjecucion2(); return CIRCULO; }
+"rectangulo" {lineaEjecucion2(); return RECTANGULO; }
+"punto"      {lineaEjecucion2(); return PUNTO; }
 "convertir" {lineaEjecucion2(); return CONVERTIR; }
 "evalua" {lineaEjecucion2(); return EVALUAR; }
 "stop" {lineaEjecucion2();  return STOP; }
@@ -254,9 +268,30 @@ yywrap() { return 1; }
    // return vector;
 //}
 
+
+extern listaNodo ultimaLista;
+
+
  ast * nuevonodo()  {
  ast * p;
-p = malloc(sizeof(struct ast));
+ 
+ listaNodo nuevalista;
+ 
+p = (ast *) malloc(sizeof(struct ast));
+
+nuevalista = (listaNodo *) malloc(sizeof(struct lista));
+
+nuevalista->address_nodo = ultimaLista->address_nodo;
+nuevalista->anterior_lista = ultimaLista->anterior_lista;
+nuevalista->siguiente_lista = ultimaLista;
+
+ultimaLista->address_nodo = p;
+ultimaLista->anterior_lista = nuevalista;
+ultimaLista->siguiente_lista = NULL;
+
+ //listaAnterior.address_nodo = p;
+
+
 
 extern long memoria;
 memoria += sizeof(struct ast);
@@ -279,9 +314,31 @@ return p;
 
 }
 
+int cuentalista = 0;
+extern long memoria;
+
+ liberar_lista(listaNodo  ultima) {
+     cuentalista++;
+     if (ultima->anterior_lista != NULL) {
+         //printf("%d --  %p\n", cuentalista,  ultima->anterior_lista);
+         liberar_lista(ultima->anterior_lista);
+     }
+     if (ultima->address_nodo!=NULL) {
+        free(ultima->address_nodo);
+        free(ultima);    
+        memoria = memoria - sizeof(struct ast);
+        nodos--;
+     }
+     
+ 
+ }
+
 void  cuentalineas( char * texto ) {
 int i = 0;
 for (i=0; i < strlen(texto); i++ ) {
-        if  ( texto[i] == '\n' || texto [i] == '\r') linenumber++;
+        if  ( texto[i] == '\n' || texto [i] == '\r') {
+            linenumber++;
+            
+        }
     }
 }

@@ -65,7 +65,7 @@ extern ast * pila_records[32]; // pila de registros
 #include "vars.h"
 typedef char tipollave;
 extern tipollave llave[55];
-extern xapuntador xraiz;
+extern xapuntador xraiz;   extern  void liberar_nodo( ast * , int );
 
 
 // double var[127]; // 127 variables numericas e indices a variables alfa y literales
@@ -472,7 +472,7 @@ ast * nodo1(tiponodo Tipo, ast * a) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
+    p->nodo1 = (ast *) a;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
     p->subnodos = 1;
@@ -523,8 +523,8 @@ ast * nodo2(tiponodo Tipo, ast * a, ast * b)
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
     p->subnodos = 2;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -542,9 +542,9 @@ ast * nodo3(tiponodo Tipo, ast * a, ast * b, ast * c) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 = (ast *) c;
     p->subnodos = 3;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -565,10 +565,10 @@ ast * nodo4(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
-    p->nodo4 = d;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 = (ast *) c;
+    p->nodo4 = (ast *) d;
     p->subnodos = 4;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -585,11 +585,11 @@ ast * nodo5(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d, ast * e) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
-    p->nodo4 = d;
-    p->nodo5 = e;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 =  (ast *) c;
+    p->nodo4 = (ast *)  d;
+    p->nodo5 = (ast *) e;
     p->subnodos = 5;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -818,6 +818,7 @@ int interpretar() {
     
     int idx_prg_bak;
     idx_prg_bak = idx_prg;
+    //TODO:  crear un backup del ultimo nodo de la lista de nodos.
     char * input;
     input = buff1;
 /*
@@ -1029,7 +1030,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
 }
 
 
-
+//estudiar aqui
 void guardar_campos(ast * lista_de_campos, FILE * handler) {
     int nnodos = 0;
     int largo;
@@ -1071,6 +1072,8 @@ char nombrefuncion[50];
 
 extern void mainsql(char *, int j);
 
+
+//rem
 void * execut(ast * p) {
     
     double return_value; //sin uso
@@ -1157,6 +1160,8 @@ void * execut(ast * p) {
                            &start);
         }
         
+        
+        //estudiar aqui
         //ir a la linea de ejecucion
         if (idx_prg!=39+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
@@ -1323,6 +1328,7 @@ void * execut(ast * p) {
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
+            //estudiar aqui
             tam = tamanio+3;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
             fseek(handler2, pos, SEEK_SET);
@@ -1886,6 +1892,23 @@ void * execut(ast * p) {
         }
             break;
 
+        case dibuja_rectangulo:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
+
+        case dibuja_punto:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
 
         case interpreta:
 
@@ -2254,7 +2277,7 @@ void * execut(ast * p) {
         case imprimir_literal:
             
             fflush(stdout);
-            printf("%s\n\n", constantes [(int) p->nodo1->num]);
+            printf("%s", constantes [(int) p->nodo1->num]);
             sprintf(mensaje2, "%s", constantes [(int) p->nodo1->num]);
             strcat(msgbox, mensaje2);
             strcat(msgbox, " ");
@@ -2855,6 +2878,16 @@ double evalua(ast * p) {
                     //res =  (double) i;
                     return res;
                 }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "seno")) {
+                    double i;
+                    
+                    i = evalua( p->nodo2->nodo1);
+                    res = (double) sin(i);
+
+                    return res;
+                }
+
                 
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "random")) {
                     res = rando();

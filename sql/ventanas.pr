@@ -9,7 +9,7 @@ registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
-  CTELEFONO 9
+  CTELEFONO 10
 fin-registro
  
 INDICE = 'nuevos contactos.ndx'
@@ -251,4 +251,18 @@ procedimiento clicar_boton
 		circulo i*5+20, i*5+20, numero
 		i=i+10
 	fin-haz
+
+    i = 1
+	j = 0
+	decimales 10
+	mientras i < 360*2
+	{
+		j = seno( i * 3.1415926536 / 180.0)
+		imprimir 'i=',  i, '  j=', j
+		punto i+50+numero,  j * 50 + 50
+		punto i+50+numero,  j * 150 + 250
+		i = i + 1
+
+	}
+
 fin

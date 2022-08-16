@@ -11,6 +11,7 @@ extern double var[127];
 extern char contadorvar;
 extern char contador;
 
+#include "nodo.h"
 #include "vars.h"
 /*extern char variables[127][127];
 extern char constantes[127][127]; */
@@ -176,7 +177,6 @@ extern int idx_win;
 extern FILE * yyin;
 extern int err_number;
 
-#include "nodo.h"
 
 extern void execut(ast*);
 
@@ -425,7 +425,6 @@ main_anterior (int argc, char *argv[])
     return 0;
 }
 
-
 update_statusbar(GtkTextBuffer *buffer,
                   GtkStatusbar  *statusbar) {
   gchar *msg;
@@ -448,7 +447,6 @@ update_statusbar(GtkTextBuffer *buffer,
 }
 
  GdkColor color;
-
 
 void select_font(GtkWidget *widget, gpointer label) {
 
@@ -526,8 +524,6 @@ int colorDialog() {
   return 0;
 }
 
-
-
 void mark_set_callback(GtkTextBuffer *buffer, 
     const GtkTextIter *new_location, GtkTextMark *mark, gpointer data) {
                        
@@ -549,7 +545,7 @@ velocidad2 (GtkButton * button, gpointer user_data)
     tiempo = tiempo - 200000L;
     printf("%lu\n", tiempo);
 }
-//
+
 extern short comprobar_regex(char * , char * );
 extern regmatch_t captures[2];
 
@@ -650,11 +646,10 @@ resaltarAlfanum (GtkButton * button, gpointer user_data)
         //printf ("offset %d\n", offset);
 
          buscando = TRUE;
-    }}
+      }
+    }
     
 }
-
-
 
 int random() {
   unsigned int limit = 6;
@@ -812,10 +807,9 @@ create_window() {
                          NULL,
                          NULL, NULL, NULL, -1);
 
-    button_clear = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
-                         GTK_STOCK_EXECUTE,
-                         NULL,
-                         NULL, NULL, NULL, -1);
+	button_clear=gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_EXECUTE, NULL, NULL, NULL, NULL, -1);
+// rem
+                         
     
 /*
      button_clear = gtk_button_new_with_label("Run");
@@ -952,8 +946,6 @@ gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
     return window;
 }
 
-
-
 void liberar_mem() {
     char str1 [100];
     char str2 [100];
@@ -966,6 +958,7 @@ void liberar_mem() {
             {
                 idx_prc--;
                 liberar_nodo(procedimientos[idx_prc], idx_prc);
+        procedimientos[idx_prc] = NULL;
             }
             
             //liberar vectores:
@@ -976,17 +969,20 @@ void liberar_mem() {
                 idx_vec--;
                 
                 vector = arrayVectores[idx_vec];
-
-
-                //tamano = malloc__size(vector);
-
+#ifdef __APPLE__
+#pragma message ("compilando en apple")
+        tamano = malloc__size(vector);
+#else
+#pragma message( "no es apple" )
+                //estudiar aqui, no se puede usar esta funcion es para GNU
                 //tamano = malloc_usable_size(vector);
-
+#endif
                 free(vector);
                 memoria -= tamano;
             }
             
-            
+    contador = 0;
+    contadorvar = 0;
            // free ( procedimientos[6]->nodo1);
            // free (procedimientos[6]);
              sprintf(str1, "Constantes: %d", (int) contador );
@@ -1008,12 +1004,11 @@ void liberar_mem() {
          //   liberar_nodo(pila_programas[31], 31);
       //      printf("memoria: %ld \n", memoria);
 
-        //   g_free(input);
-           
-           
-         //  yy_delete_buffer(input); /* free up memory */ 
-            
-      //  yy_delete_buffer(YY_CURRENT_BUFFER);   
+    /*
+              g_free(input);      
+              yy_delete_buffer(input);    
+           yy_delete_buffer(YY_CURRENT_BUFFER);   
+     */
              
 
             /*Analyze the string*/
@@ -1167,6 +1162,10 @@ on_button_load_clicked(GtkButton * button, gpointer user_data) {
 
     g_assert (GTK_IS_TEXT_VIEW (user_data));
 
+    textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(user_data));
+
+    gtk_text_buffer_cut_clipboard(textbuffer,
+            gtk_clipboard_get(GDK_NONE), TRUE);
     
     
     
@@ -1181,16 +1180,13 @@ dialog = gtk_file_chooser_dialog_new ("Open File",
                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                       GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
                                       (void *) 0);
+                                      //rem
 
-
-
-//dialog = gtk_file_chooser_dialog_new("Save file", GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, "Cancel", 0, "OK", 1, NULL);
-
-
+/*
 textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(user_data));
 
 gtk_text_buffer_cut_clipboard(textbuffer,
-    gtk_clipboard_get(GDK_NONE), TRUE);
+    gtk_clipboard_get(GDK_NONE), TRUE);*/
 
 
 if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
@@ -1368,7 +1364,6 @@ on_button_underline_clicked (GtkButton * button, gpointer user_data)
                        &end);
 }
 
-
 void
 on_button_strike_clicked (GtkButton * button, gpointer user_data)
 {
@@ -1388,7 +1383,6 @@ on_button_strike_clicked (GtkButton * button, gpointer user_data)
 extern char modo_pausa;
 extern char en_pausa;
 extern char buff1[128];
-
 
 void interpretarEditor() {
     
@@ -1425,7 +1419,6 @@ selected = gtk_text_buffer_get_selection_bounds(buffer2,
 
 gboolean
 on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
-
 {
 GtkTextIter start_sel, end_sel;
 GtkTextIter start_find, end_find;
@@ -1830,7 +1823,7 @@ void xxmain (int argc, const char *argv)
                     printf("cargando en pila programas indice %d\n", idx_prg);
                     //initProcedimientos();
                     yyparse();
-                    printf("memoria: %li\n", (long) memoria);
+                    printf("memoria: %li  nodos: %d \n", (long) memoria, (int) nodos);
                     linenumber  = 1;
                     fclose(yyin);
                     yyin = NULL;

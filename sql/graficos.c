@@ -177,6 +177,7 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
  // **** DIBUJAR UNA LINEA ****
 void dibujarlinea() {
 	double x, y, x1, y1;
+  x1 = 0; y1=0;
     cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (darea));
  
@@ -184,6 +185,7 @@ void dibujarlinea() {
     
     x = (double)  evalua( nodografico2->nodo1);
     y = (double) evalua( nodografico2->nodo2);
+    if (nodografico2->subnodos > 2)
     x1 = (double)   evalua(nodografico2->nodo3);
     if (nodografico2->subnodos > 3)
     y1 = (double)   evalua( nodografico2->nodo4);
@@ -205,7 +207,7 @@ void dibujarlinea() {
  
  }
 
- else {
+ if (nodografico2->tipo == dibuja_circulo) {
 
 	     cairo_arc(cr, x, y, x1, 0, 2 * 3.1415);
 		 cairo_stroke_preserve(cr);
@@ -213,6 +215,26 @@ void dibujarlinea() {
 	     cairo_fill(cr);
  }
   
+ if (nodografico2->tipo == dibuja_rectangulo) // dibuja rectangulo
+  {
+     //printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
+     cairo_set_line_width(cr, 1.5);
+     cairo_rectangle (cr, x, y, x1, y1);
+	   cairo_stroke_preserve(cr);  // estaba con preserve
+
+
+  }
+
+  if (nodografico2->tipo == dibuja_punto) // dibuja punto
+  {
+
+    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_line_width(cr, 2);
+        cairo_move_to(cr, x, y);
+        cairo_close_path(cr);
+        cairo_stroke(cr);
+  }
 
   
 
@@ -241,8 +263,8 @@ void dibujarlinea() {
   //cairo_surface_write_to_png(imagen,
 	 // filename);
 
- // cairo_destroy(cr2);
-  //cairo_surface_destroy(imagen);
+  cairo_destroy(cr2);
+  cairo_surface_destroy(imagen);
  
 
 //  return FALSE;
