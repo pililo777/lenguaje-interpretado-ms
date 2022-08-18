@@ -64,6 +64,12 @@
     <ClInclude Include="vars.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="temp2\pcre-7.9-dll\pcre.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="temp2\pcre-7.9-dll\pcreposix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="grammar.y" />
@@ -72,5 +78,13 @@
     <None Include="CONTACTS.CSV" />
     <None Include="LISTADO.PR" />
     <None Include="ARCHIVOS.PR" />
+    <None Include="temp2\pcre-7.9-dll\pcre.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="temp2\pcre-7.9-dll\pcre.dll" />
+    <None Include="temp2\pcre-7.9-dll.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="temp2\pcre-7.9-dll\pcre.lib" />
   </ItemGroup>
 </Project>
