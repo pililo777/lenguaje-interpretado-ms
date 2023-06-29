@@ -724,6 +724,31 @@ int buscar_posicion() {
         return (-1);
 }
 
+int buscar_posicionAlfa() {
+    char* string_buscada;
+    int i = 0;
+    int j = 0; //bool
+
+    string_buscada = buff2[3];
+
+    for (i = 0; i < punchar + 1; i++) {
+        /*  printf("%d   ", i);
+        printf("%s \n", var_n[i].nombre); */
+        if (strcmp(var_c[i].nombre, string_buscada) == 0) {
+            ;
+            j = 1;
+            break;
+            ;
+        }
+        else {
+            ;
+        };
+    };
+    if (j) return (i);
+    else
+        return (-1);
+}
+
 short inter_flag = 0;
 
 int 
@@ -950,9 +975,20 @@ storenum() {
 //TODO: buscar la posicion del nombre de la variable, similar a storenum.
 
 storechar() {
-    punchar++;
-    strcpy(var_c[punchar].nombre, buff2[3]);
-    sprintf(var_c[punchar].contenido, "%s", buff2[1]);
+    int i = 0;
+    int j = 0;
+    j = punchar;
+    j++;
+    i = buscar_posicionAlfa();
+    if (!(i == -1))
+        j = i;
+    else
+        punchar++;
+
+
+    //punchar++;
+    strcpy(var_c[j].nombre, buff2[3]);
+    sprintf(var_c[j].contenido, "%s", buff2[1]);
 }
 
 
