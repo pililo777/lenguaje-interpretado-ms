@@ -285,7 +285,7 @@ extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 //int obtenerllave(tipollave *);
 extern void mainsql2(int j);
 
-void mainsql(char * constante, int j, char * constante2) {
+void mainsql(char * constante, int jjj, char * constante2) {
 	//constante es la consulta
 	int i = strlen(constante)+1;
 	consulta1 =  (malloc(i * sizeof(wchar_t)));
@@ -304,7 +304,7 @@ void mainsql(char * constante, int j, char * constante2) {
 	//printf("%s\n", consulta);
 	//i = wcslen(consulta2);
 
-    mainsql2(j);
+    mainsql2(jjj);
 	fflush(stdout);
     free(consulta1);
 	free(consulta2);

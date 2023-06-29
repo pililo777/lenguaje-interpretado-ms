@@ -21,7 +21,7 @@ extern SQLWCHAR *consulta2;
 //SQLWCHAR consulta2[] = L"SELECT top 2 message from log";   "select nomEsc from ejemplo.dbo.coches"
 
 
-int mainsql2(int j)
+int mainsql2(int jjj)
 {
 	SQLHENV henv;
 	SQLHDBC hdbc;
@@ -85,7 +85,7 @@ int mainsql2(int j)
 							retcode = SQLFetch(hstmt);    //COGE EL SIGUEINTE REGISTRO DE LA TABLA
 							if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
 								{
-									i = (int)array_variables[j].numero;    // el indice de la variable (designator)
+									i = (int)array_variables[jjj].numero;    // el indice de la variable (designator)
 									vector = arrayVectoresAlfa[i];   // hasta 32 vectores
 									k = im * 127;
 									strcpy(&vector[k], szText);   //expresion y expresion 
