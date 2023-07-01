@@ -65,7 +65,7 @@ tipollave llave[55];
 //int opcion;
 //FILE *arch;
 //FILE *datafile;
-struct xnodo primernodo;
+//struct xnodo primernodo;
 posicion i;
 xapuntador xraiz;
 
@@ -990,7 +990,17 @@ int main2() {
 
 /*-- rutinas de manejo de base de datos --------------------*/
 
+#define MAXPALABRAS      20 /* maximo numero de palabras en el buffer */
+#define MAXLARGO        128 /* maximo largo de caracteres por palabra */
+
+extern char buff2[MAXPALABRAS][MAXLARGO];  // Declaración externa
+
 int use(char * nombre_indice) {
+
+    if (nombre_indice == NULL) {
+        nombre_indice = buff2[1];
+    }
+
     if (!exists(nombre_indice)) 
      {
         arch = fopen(nombre_indice, "w");

@@ -842,7 +842,9 @@ int interpretar() {
         /*
                 printf("ejecutando programa 31\n");
          */
-        execut(pila_programas[31]); liberar_nodo(pila_programas[31], 31);
+        execut(pila_programas[31]);
+        
+        //liberar_nodo(pila_programas[31], 31);
         /*
                 printf("fin programa 31\n");
          */

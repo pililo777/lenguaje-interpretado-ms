@@ -27,7 +27,7 @@ void comandos(char dummy);
 
 
 
-#define MAXPALABRAS      10 /* maximo numero de palabras en el buffer */
+#define MAXPALABRAS      20 /* maximo numero de palabras en el buffer */
 #define MAXLARGO        128 /* maximo largo de caracteres por palabra */
 #define BUFSIZE         128 /* tamano del buffer en caracteres */
 #define MAXCANTCOMANDOS 128 /* comandos programados en este fuente */
@@ -253,7 +253,7 @@ void init_comandos() {
     comando[31].nombre = "editorgtk";
     comando[31].pfuncion = main_anterior;
     
-    comando[32].nombre = "buscar";           //28/07/2016
+    comando[32].nombre = "buscarIndice";           //28/07/2016
     comando[32].pfuncion = buscar_en_indice;
     
     comando[33].nombre = "insertar";           //28/07/2016
@@ -420,10 +420,17 @@ void listarTDS() {
 
 
 // muestra una variable, se llama desde el "."
-int  listavar() {
+int  listavar(int argc, char  argv[][MAXLARGO]) {
     int indice;
+
+    if (argc != 2) {
+		printf("Error: se esperaba un solo argumento\n");
+		return 1;
+	}
+
+
     printf("variable\n");
-    indice = atoi(buff2[1]);
+    indice = atoi(argv[1]);
     printf ("tds: %s           ", array_variables[indice].nombre);
     if (array_variables[indice].tipo == 'N')
         
@@ -815,7 +822,14 @@ prompt() {
     if (found) {
 
         // aqui se llama al comando correspondiente, a veces es preferible pasar buff1, o buff2[n]
-        resultado = (int *) (*comando[i].pfuncion) (argc, buff2);   
+        if (strcmp(comando[i].nombre, "use") == 0) {
+			resultado = use (buff2[1]);
+        }
+        else
+        {
+            resultado = (int*)(*comando[i].pfuncion) (argc, buff2);
+        }
+        
 
         if (depurando) {
 
@@ -850,6 +864,9 @@ prompt() {
 
 void inter() {
     inter_flag = !inter_flag;
+    //double x;
+    //x = 4.5343545;
+    //printf("El tamaño de un 'double' es: %zu bytes\n", sizeof(double));
 }
 
 /****************     inicio de las funciones   **********************/
@@ -940,6 +957,10 @@ parse() {
 
         buff2[j][k] = '\0';
         j++;
+        if (j == MAXPALABRAS+1) {
+            printf("se ha llegado al maximo de palabras en el buffer de entrada de comandos");
+            return 0;
+        }
         while (buff1[i] == ' ') i++;
     }
     return j;

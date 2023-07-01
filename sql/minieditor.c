@@ -1750,7 +1750,9 @@ extern char buff2[10][128];
 
 extern void initProcedimientos();
 
-int cargar(int argc, const  char argv[][128])
+#define MAXLARGO        128 /* maximo largo de caracteres por palabra */
+
+int cargar(int argc, const  char argv[][MAXLARGO])
 /*
 void xxmain (int argc, const char *argv)
  */ {
