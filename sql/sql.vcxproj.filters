@@ -77,7 +77,7 @@
     <None Include="ventanas.pr" />
     <None Include="CONTACTS.CSV" />
     <None Include="LISTADO.PR" />
-    <None Include="ARCHIVOS.PR" />
+    <None Include="ARCHIVOS.pr" />
     <None Include="temp2\pcre-7.9-dll\pcre.def">
       <Filter>Source Files</Filter>
     </None>

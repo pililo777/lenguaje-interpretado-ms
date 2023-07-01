@@ -9,7 +9,7 @@ void comandos(char dummy);
 #include "ctype.h"
 #include <string.h>
 #include <wchar.h>
-
+#include "vars.h"
 
 #define UNIX
 
@@ -80,6 +80,7 @@ int doit();
 int enorden();
 int t_close();
 int runprog();
+void listarTDS();
 extern int main_anterior(int argc, char *argv[]);
 
 void inter();
@@ -112,7 +113,10 @@ int             punchar = -1;
 int             punnum = -1;
 char                                              buff1[BUFSIZE];
 char                                              buff2[MAXPALABRAS][MAXLARGO];
-int mquit, contador;
+int mquit;
+
+extern int contador;
+extern int contadorvar;
 
 
 
@@ -234,7 +238,7 @@ void init_comandos() {
     comando[24].nombre = "cargalib";
     comando[24].pfuncion = NULL;
     comando[25].nombre = "vars";
-    comando[25].pfuncion = NULL;
+    comando[25].pfuncion = listarTDS;
     comando[26].nombre = "descargalib";
     comando[26].pfuncion = NULL;
     comando[27].nombre = "testlib";
@@ -276,7 +280,7 @@ void init_comandos() {
 
 }
 
-#include "vars.h"
+
 typedef char tipollave;
 extern tipollave llave[55];
 extern xapuntador xraiz;
@@ -372,6 +376,47 @@ void comandos(char a)
 
 
 extern double var[127];  //en run.c
+
+
+void listarTDS() {
+    int i;
+    int cont, contvar;
+    cont = contador;
+    contvar = contadorvar;
+
+    printf("VARIABLES: %d\n", contvar);
+
+    for (i = 0; i < contvar; i++) {
+        char tipo;
+        tipo = (char)array_variables[i].tipo;
+        printf("var %3d  %25s  %c     ", i, array_variables[i].nombre, tipo);
+        switch (tipo) {
+        case 'N':
+        {
+            printf("valor %lf\n", array_variables[i].numero);
+        }
+        break;
+
+        case 'S':
+        {
+            if (array_variables[i].string != NULL)
+                printf("%s\n", array_variables[i].string);
+            else
+                printf("\n");
+        }
+        break;
+
+        default:
+            printf("proc: %d\n", array_variables[i].procedimiento);
+            break;
+        }
+    }
+    printf("CONSTANTES: %d\n", cont);
+    for (i = 0; i < cont; i++) {
+        printf("const  %d    %-60s\n", i, constantes[i]);
+    }
+    printf("total: %d\n", cont + contvar);
+}
 
 
 // muestra una variable, se llama desde el "."

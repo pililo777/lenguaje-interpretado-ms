@@ -5,14 +5,14 @@ Ejemplo de acceso a ficheros indice y de datos. También muestra cómo crear y u
 */
 
 
-registro clientes 'nuevos contactos.dbf'
+registro clientes 'contacts.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
   CTELEFONO 10
 fin-registro
  
-INDICE = 'nuevos contactos.ndx'
+INDICE = 'contacts.ndx'
 use INDICE   //trabajaremos con el indice
  
 evalua "resultado = 3*8"

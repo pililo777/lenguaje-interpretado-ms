@@ -48,7 +48,3 @@ desde numeroreg = 1 hasta 6
 close //  cierra el indice con la ultima raiz
 imprimir 'fin del programa'
 
-
-
-
-

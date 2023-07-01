@@ -162,7 +162,7 @@ void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
 
 void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) 
 {
-
+    size_t elementos_leidos;
     short int conteo;
     long int   rama;
     long int   datoInt;
@@ -179,7 +179,7 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
     posicion = (*xp + 1) * tamanyoRegistro;
     fseek(arch, posicion, SEEK_SET);
     a= ftell(arch);
-    fread(&conteo, 1, sizeof(conteo), arch);
+    elementos_leidos = fread(&conteo, sizeof(conteo), 1, arch);
   //  xpnLocal = *xpn;
     xpnLocal.xconteo = conteo;
     posicion += sizeof(conteo);
@@ -1003,9 +1003,9 @@ int use(char * nombre_indice) {
     arch = fopen(nombre_indice, "r+b");
     xraiz = -1;
     
-    leenodo(&xraiz, &primernodo, 10); //nos interesa leer el tamaño del registro solamente
-    xraiz = primernodo.xrama[0];
-    tam_registro = primernodo.xconteo;
+    leenodo(&xraiz, &primernodo, 20); //nos interesa leer el tamaño del registro solamente
+    xraiz = primernodo.xrama[0];  //la raiz es el valor de la primer rama del primer nodo
+    tam_registro = primernodo.xconteo; //el tamaño del registro es el campo xconteo del registro del primer nodo
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
