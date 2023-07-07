@@ -43,10 +43,10 @@ void dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k, tipol
 int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray);
 void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray);
-void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray);
+//void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray);
 void buscarnodo(tipollave *objetivo, xapuntador *xp, int *encontrar, posicion *k);
 
-
+void nuevo(xapuntador * xp, int variableArray);
 #define MAX 4;
 #define MIN 2;
 
@@ -97,7 +97,7 @@ void nuevo(xapuntador * xp, int variableArray)
  
     a = fseek(arch, 0, SEEK_END); /* posiciona en la ultima posicion del archivo */
     a = ftell(arch); /* dice el tamano en bytes del archivo */
-     tamanyoRegistro = sizeof(conteo)+sizeof(datoInt)*4+sizeof(rama)*5+variableArray*4+2;
+    tamanyoRegistro = sizeof(conteo) + sizeof(datoInt) * 4 + sizeof(rama) * 5 + variableArray * 4; // +2;
     *xp = (a / tamanyoRegistro ) - (long) 1; /* da el tamano en registros */
     if (*xp == -1) {
         *xp = 0;
@@ -118,7 +118,7 @@ void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
     
     int tamanyoRegistro;
      // printf("Tamaño registro: %d\n",variableArray);
-    tamanyoRegistro = sizeof(conteo)+sizeof(datoInt)*4+sizeof(rama)*5+variableArray*4+2;
+    tamanyoRegistro = sizeof(conteo) + sizeof(datoInt) * 4 + sizeof(rama) * 5 + variableArray * 4; // +2;
     struct xnodo xpnLocal;
     xpnLocal  = *xpn;
     int posicion;
@@ -139,8 +139,8 @@ void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
     }
     
     
-    fwrite(&conteo, 1, sizeof(conteo), arch);
-    posicion+=2;
+    //fwrite(&conteo, 1, sizeof(conteo), arch);
+    //posicion+=2;
     for (int i=1;i<6;i++) {
         fseek(arch, posicion, SEEK_SET);
         rama = xpnLocal.xrama[i-1];
@@ -171,7 +171,7 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
     memset(buffer, 0, sizeof(buffer));
     int tamanyoRegistro;
    // printf("Tamaño registro: %d\n",variableArray);
-    tamanyoRegistro = sizeof(conteo)+sizeof(datoInt)*4+sizeof(rama)*5+variableArray*4+2;
+    tamanyoRegistro = sizeof(conteo) + sizeof(datoInt) * 4 + sizeof(rama) * 5 + variableArray * 4; // +2;
     struct xnodo xpnLocal;
     xpnLocal  = *xpn;
     long int a;
@@ -190,8 +190,8 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
        
         posicion+=variableArray;
     }
-   // posicion-=variableArray;
-    posicion+=2;
+ 
+    //posicion+=2;
     for (int i=1;i<6;i++) {
         fseek(arch, posicion, SEEK_SET);
         fread(&rama, 1, sizeof(rama), arch);
